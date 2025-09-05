@@ -8,9 +8,9 @@ permissions:
   id-token: write
   contents: read    
 jobs:
-  azure-login: 
+ az-login-terraform-init-plan: 
     runs-on: load-balancer
-    name: azure-login
+    name: az-login-terraform-init-plan
     steps: 
      - name: Checkout
        uses: actions/checkout@v5.0.0
@@ -26,7 +26,6 @@ jobs:
        id: fmt
        working-directory: ./env/dev
        run: terraform fmt -check
-       
        continue-on-error: true
        
      - name: Terraform Init
@@ -34,6 +33,27 @@ jobs:
        working-directory: ./env/dev
        run: terraform init -input=false
        
+     - name: Terraform Plan
+       id: plan
+       run: terraform plan -no-color -input=false
+       continue-on-error: true
+       
+ Apply-stage:
+   runs-on: load-balancer
+   name: terraformapply
+   environment: dev
+   steps:
+    - name: Terraform Init
+      id: init
+      working-directory: ./env/dev
+      run: terraform init -input=false
+
+    - name: TerraformApply
+      id: apply
+      working-directory: ./env/dev
+      run: terraform apply -auto-approve
+
+  
           
 
       
