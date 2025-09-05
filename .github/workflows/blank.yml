@@ -1,0 +1,24 @@
+name: loadbalancer-pipeline
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
+  #     - 'feature/**'
+permissions:
+  id-token: write
+  contents: read    
+jobs:
+  azure-login: 
+    name: azure-login
+    runs-on: self-hosted
+    steps: 
+     - name: Azure login
+       uses: Azure/login@v2.3.0
+       with:
+          client-id: 6ce57f3b-b49b-47d0-b4d5-4d065ee8c696
+          tenant-id: b24a5be3-6852-43c6-b00e-086d16b535ab
+          subscription-id: 258a8e61-bb4a-4a2e-99d2-ca7211e4a421
+    
+    
+  
+      
