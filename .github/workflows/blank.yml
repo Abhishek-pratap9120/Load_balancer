@@ -9,7 +9,7 @@ permissions:
   contents: read    
 jobs:
   azure-login: 
-    runs-on: ubuntu-latest
+    runs-on: load-balancer
     name: azure-login
     steps: 
      - name: Checkout
