@@ -38,9 +38,30 @@ jobs:
        run: terraform plan -no-color -input=false
        continue-on-error: true
        
+ ScanningStage:
+    needs: az-login-terraform-init-plan
+    name: ScanningStage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install tflint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          
+      - name: Run tflint
+        working-directory: ./env/dev
+        run: tflint --init && tflint
+
+      - name: Install tfsec
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+
+      - name: Run tfsec
+        working-directory: ./env/dev
+        run: tfsec .
+        
  Apply-stage:
    runs-on: load-balancer
-   needs: az-login-terraform-init-plan
+   needs: ScanningStage
    name: terraformapply
    environment: dev
    steps:
