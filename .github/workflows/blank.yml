@@ -40,6 +40,7 @@ jobs:
        
  Apply-stage:
    runs-on: load-balancer
+   needs: az-login-terraform-init-plan
    name: terraformapply
    environment: dev
    steps:
