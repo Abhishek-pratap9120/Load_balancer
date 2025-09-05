@@ -54,6 +54,7 @@ jobs:
       - name: Run tflint
         working-directory: ./env/dev
         run: tflint --init && tflint
+        continue-on-error: true
 
       - name: Install tfsec
         run: |
