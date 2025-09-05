@@ -1,0 +1,13 @@
+variable "resource_group" {}
+variable "virtual_network" {}
+variable "subnet" {}
+variable "nsg" {}
+variable "pip" {}
+variable "nic" {}
+variable "vm" {}
+variable "load_balancer" {}
+variable "backend_pool" {}
+variable "health_probe" {}
+variable "lb_rule" {}
+variable "nic_association" {}
+variable "subnet_association" {}
